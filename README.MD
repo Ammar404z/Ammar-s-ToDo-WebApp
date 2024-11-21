@@ -1,0 +1,54 @@
+# ToDo Application
+
+## Beschreibung
+
+Diese Applikation ist eine einfache REST-basierte Anwendung zur Verwaltung von ToDos und Assignees. Sie bietet CRUD-Operationen für beide Entitäten und speichert die Daten in einer MariaDB-Datenbank.
+(Diese Applikation folgt dem Schema des Beispielprojektes in PE II)
+
+## Voraussetzungen
+
+Stellen Sie sicher, dass die folgenden Programme auf Ihrem System installiert sind:
+
+- Java 21 oder höher
+- Maven 3.8.0 oder höher
+- MariaDB (lokal oder remote)
+- Git
+
+## Konfiguration
+
+1. Stellen Sie sicher, dass Ihre MariaDB-Instanz läuft.
+
+## Ausführung
+
+1. Klonen Sie das Repository:
+
+git clone https://github.tik.uni-stuttgart.de/iste-pe2-2024/repo086.git
+
+2. Navigiere zum Repository: (wichtig: zu den api Ordner)
+
+cd repo086/api
+
+2. Bauen und starten Sie die Anwendung mit Maven:
+
+mvn spring-boot:run
+
+3. Die API ist nun unter http://localhost:8080/api/v1/ verfügbar.
+
+## Beispiel-Endpoints
+
+    •	ToDo Endpunkte
+    •	GET: /api/v1/todos
+    •	POST: /api/v1/todos
+    •	PUT: /api/v1/todos/{id}
+    •	DELETE: /api/v1/todos/{id}
+
+    •	Assignee Endpunkte
+    •	GET: /api/v1/assignees
+    •	POST: /api/v1/assignees
+    •	PUT: /api/v1/assignees/{id}
+    •	DELETE: /api/v1/assignees/{id}
+
+## Wichtige Hinweise
+
+    •	Verwenden Sie Postman oder ein ähnliches Tool, um die Endpunkte zu testen.
+    •	Achten Sie darauf, dass die MariaDB-Instanz korrekt konfiguriert und erreichbar ist. (username: root, Password: root).
