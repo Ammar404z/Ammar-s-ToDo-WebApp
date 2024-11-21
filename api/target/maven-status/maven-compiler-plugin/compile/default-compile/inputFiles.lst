@@ -1,0 +1,12 @@
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/ApiVersion1.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/Application.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/Assignee/Assignee.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/Assignee/AssigneeController.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/Assignee/AssigneeRepository.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/ToDo/ToDo.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/ToDo/ToDoController.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/ToDo/ToDoRepository.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/ToDo/ToDoRequest.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/cats/Cat.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/cats/CatController.java
+/Users/jsj/Desktop/Studium/3 Semester/PE II/rest-api-spa-example/api/src/main/java/de/unistuttgart/iste/ese/api/cats/CatRepository.java
