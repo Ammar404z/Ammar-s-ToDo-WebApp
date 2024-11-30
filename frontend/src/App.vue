@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {RouterView} from 'vue-router'
-import {Close, Header, HeaderNav, HeaderNavItem, Toast, Toasts} from "agnostic-vue";
-import {activeToasts} from "@/ts/toasts";
+import { activeToasts } from '@/ts/toasts'
+import { Close, Header, HeaderNav, HeaderNavItem, Toast, Toasts } from 'agnostic-vue'
+import { RouterView } from 'vue-router'
 
-import 'agnostic-vue/dist/common.min.css';
-import "agnostic-vue/dist/index.css";
+import 'agnostic-vue/dist/common.min.css'
+import 'agnostic-vue/dist/index.css'
 </script>
 
 <template>
@@ -21,12 +21,18 @@ import "agnostic-vue/dist/index.css";
           <HeaderNavItem>
             <RouterLink to="/cats">Cats</RouterLink>
           </HeaderNavItem>
+          <HeaderNavItem>
+            <RouterLink to="/assignees">Assignees</RouterLink>
+          </HeaderNavItem>
+          <HeaderNavItem>
+            <RouterLink to="/create-assignee">Create an Assignee</RouterLink>
+          </HeaderNavItem>
         </HeaderNav>
       </template>
     </Header>
 
     <div class="main">
-      <RouterView/>
+      <RouterView />
     </div>
   </div>
 
@@ -36,7 +42,7 @@ import "agnostic-vue/dist/index.css";
         <div class="flex-fill flex flex-column">
           <div class="flex">
             <h3 class="flex-fill">{{ toast.title }}</h3>
-            <Close @click="toast.close()"/>
+            <Close @click="toast.close()" />
           </div>
           <div class="flex">
             <font-awesome-icon :icon="toast.icon" size="xl" class="mie8 pbs2"></font-awesome-icon>
@@ -46,7 +52,7 @@ import "agnostic-vue/dist/index.css";
           </div>
         </div>
       </Toast>
-      <div class="mbe14"/>
+      <div class="mbe14" />
     </template>
   </Toasts>
 </template>

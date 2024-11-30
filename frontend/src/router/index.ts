@@ -1,7 +1,10 @@
-import { createRouter, createWebHashHistory  } from 'vue-router'
+import AboutView from '@/views/AboutView.vue'
+import AssigneesView from '@/views/AssigneesView.vue'
+import CatsView from '@/views/CatsView.vue'
+import createAssigneeView from '@/views/createAssigneeView.vue'
+import editAssigneeView from '@/views/editAssigneeView.vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AboutView from "@/views/AboutView.vue";
-import CatsView from "@/views/CatsView.vue";
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -20,6 +23,21 @@ const router = createRouter({
       path: '/cats',
       name: 'cats',
       component: CatsView
+    },
+    {
+      path: '/assignees',
+      name: 'assignees',
+      component: AssigneesView
+    },
+    {
+      path: '/create-assignee',
+      name: 'create-assignee',
+      component: createAssigneeView
+    },
+    {
+      path: '/assignees/:id',
+      name: 'edit-assignee',
+      component: editAssigneeView
     }
   ]
 })
