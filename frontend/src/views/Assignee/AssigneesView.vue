@@ -61,7 +61,7 @@ onMounted(fetchAllAssignees)
   <div v-if="assignees.length === 0">
     <p>No assignees found.</p>
   </div>
-  <div v-else>
+  <div v-else class="assigneeContainer">
     <div v-for="assignee in assignees" :key="assignee.id" class="assigneeCard">
       <h3>{{ assignee.prename }} {{ assignee.name }}</h3>
       <p>{{ assignee.email }}</p>
@@ -72,6 +72,14 @@ onMounted(fetchAllAssignees)
 </template>
 
 <style scoped>
+.assigneeContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping to the next line if cards don't fit */
+  justify-content: center; /* Centers the cards horizontally */
+  gap: 20px; /* Adds spacing between the cards */
+  padding: 20px;
+}
+
 .assigneeCard {
   display: flex;
   flex-direction: column;
@@ -132,13 +140,5 @@ p {
   color: #555555; /* Medium gray for better readability */
   font-size: 16px;
   margin: 5px 0;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
-  justify-content: center;
-  margin: 30px 0;
 }
 </style>

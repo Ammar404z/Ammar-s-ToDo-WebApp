@@ -20,6 +20,12 @@ import 'agnostic-vue/dist/index.css'
         <HeaderNavItem>
           <RouterLink to="/create-assignee">Create an Assignee</RouterLink>
         </HeaderNavItem>
+        <HeaderNavItem>
+          <RouterLink to="/todos">ToDos</RouterLink>
+        </HeaderNavItem>
+        <HeaderNavItem>
+          <RouterLink to="/create-todo">Create a ToDo</RouterLink>
+        </HeaderNavItem>
       </template>
     </Header>
 
