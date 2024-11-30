@@ -1,10 +1,8 @@
-import AboutView from '@/views/AboutView.vue'
-import AssigneesView from '@/views/AssigneesView.vue'
-import CatsView from '@/views/CatsView.vue'
-import createAssigneeView from '@/views/createAssigneeView.vue'
-import editAssigneeView from '@/views/editAssigneeView.vue'
+import AssigneesView from '@/views/Assignee/AssigneesView.vue'
+import createAssigneeView from '@/views/Assignee/createAssigneeView.vue'
+import editAssigneeView from '@/views/Assignee/editAssigneeView.vue'
+import Home from '@/views/Home.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -12,17 +10,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: AboutView
-    },
-    {
-      path: '/cats',
-      name: 'cats',
-      component: CatsView
+      component: Home
     },
     {
       path: '/assignees',

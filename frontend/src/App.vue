@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { activeToasts } from '@/ts/toasts'
-import { Close, Header, HeaderNav, HeaderNavItem, Toast, Toasts } from 'agnostic-vue'
+import { Close, Header, HeaderNavItem, Toast, Toasts } from 'agnostic-vue'
 import { RouterView } from 'vue-router'
 
 import 'agnostic-vue/dist/common.min.css'
@@ -11,23 +11,15 @@ import 'agnostic-vue/dist/index.css'
   <div id="app">
     <Header isHeaderContentStart>
       <template v-slot:headernav>
-        <HeaderNav>
-          <HeaderNavItem>
-            <RouterLink to="/">Home</RouterLink>
-          </HeaderNavItem>
-          <HeaderNavItem>
-            <RouterLink to="/about">About</RouterLink>
-          </HeaderNavItem>
-          <HeaderNavItem>
-            <RouterLink to="/cats">Cats</RouterLink>
-          </HeaderNavItem>
-          <HeaderNavItem>
-            <RouterLink to="/assignees">Assignees</RouterLink>
-          </HeaderNavItem>
-          <HeaderNavItem>
-            <RouterLink to="/create-assignee">Create an Assignee</RouterLink>
-          </HeaderNavItem>
-        </HeaderNav>
+        <HeaderNavItem>
+          <RouterLink to="/">Home</RouterLink>
+        </HeaderNavItem>
+        <HeaderNavItem>
+          <RouterLink to="/assignees">Assignees</RouterLink>
+        </HeaderNavItem>
+        <HeaderNavItem>
+          <RouterLink to="/create-assignee">Create an Assignee</RouterLink>
+        </HeaderNavItem>
       </template>
     </Header>
 
