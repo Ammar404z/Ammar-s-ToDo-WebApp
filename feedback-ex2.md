@@ -11,7 +11,6 @@ Letzter Commit: 0d6f6f7
 | Funktionalität der API        | 20 / 20                            |
 | Persistenz über DB            | 5 / 5                             |
 | Repository, Config und README | 5 / 5                             |
-| **Summe**:                    | 0 / 30                            |
-| **Bestanden**:                | nein                          |
+| **Summe**:                    | 30 / 30                            |
+| **Bestanden**:                | ja                          |
 
-0 Punkte wegen Plagiat
