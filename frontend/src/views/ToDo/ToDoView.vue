@@ -2,7 +2,7 @@
 import config from '@/config'
 import { showToast, Toast } from '@/ts/toasts'
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { onMounted, ref, type Ref } from 'vue'
+import { computed, onMounted, ref, type Ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 interface ToDo {
@@ -15,26 +15,63 @@ interface ToDo {
   dueDate: number
   finishedDate: number | null
 }
-const ToDos: Ref<ToDo[]> = ref([])
+// Reactive properties
+const toDos: Ref<ToDo[]> = ref([])
+const showFinished = ref(false)
 const router = useRouter()
+const searchQuery = ref('')
+const currentSort = ref('titleAscending') // Default sorting method
 
-//Fetch all Todos from the API
+// Computed properties for filtering and sorting
+const finishedToDos = computed(() => toDos.value.filter((todo) => todo.finished))
+const unFinishedToDos = computed(() => toDos.value.filter((todo) => !todo.finished))
+
+const filteredUnfinishedToDos = computed(() => {
+  return unFinishedToDos.value
+    .filter((todo) => todo.title.toLowerCase().includes(searchQuery.value.toLowerCase()))
+    .sort((a, b) => sortToDos(a, b, currentSort.value))
+})
+
+const filteredFinishedToDos = computed(() => {
+  return finishedToDos.value
+    .filter((todo) => todo.title.toLowerCase().includes(searchQuery.value.toLowerCase()))
+    .sort((a, b) => sortToDos(a, b, currentSort.value))
+})
+
+// Sorting function
+function sortToDos(a: ToDo, b: ToDo, sortType: string) {
+  switch (sortType) {
+    case 'titleAscending':
+      return a.title.localeCompare(b.title)
+    case 'titleDescending':
+      return b.title.localeCompare(a.title)
+    case 'dueDateAscending':
+      return a.dueDate - b.dueDate
+    case 'dueDateDescending':
+      return b.dueDate - a.dueDate
+    default:
+      return 0 // No sorting if sortType is unknown
+  }
+}
+
+// Fetch all ToDos from the API
 function fetchTodos() {
   fetch(`${config.apiBaseUrl}/todos`)
     .then((response) => {
       if (!response.ok) {
-        throw new Error('Faild to fetch Todos')
+        throw new Error('Failed to fetch Todos')
       }
       return response.json()
     })
     .then((data: ToDo[]) => {
-      ToDos.value = data
+      toDos.value = data
     })
     .catch((error) => {
       showToast(new Toast('Error', error.message, 'error', faXmark, 10))
     })
 }
 
+// Format date
 function formatDate(timestamp: number): string {
   const date = new Date(timestamp)
   return date.toLocaleDateString('en-US', {
@@ -44,9 +81,10 @@ function formatDate(timestamp: number): string {
   })
 }
 
+// Mark ToDo as finished/unfinished
 async function setFinished(todo: ToDo) {
-  todo.finished = !todo.finished // Toggle the finished state
-  todo.finishedDate = todo.finished ? Date.now() : null // Update the finished date
+  todo.finished = !todo.finished
+  todo.finishedDate = todo.finished ? Date.now() : null
 
   try {
     const response = await fetch(`${config.apiBaseUrl}/todos/${todo.id}`, {
@@ -59,11 +97,11 @@ async function setFinished(todo: ToDo) {
     }
     showToast(new Toast('Success', 'ToDo status updated successfully', 'success', faCheck, 5))
   } catch (error: any) {
-    console.error('Error updating ToDo:', error)
     showToast(new Toast('Error', error.message, 'error', faXmark, 10))
   }
 }
 
+// Delete ToDo
 function deleteTodo(id: number) {
   if (confirm('Are you sure you want to delete this ToDo?')) {
     fetch(`${config.apiBaseUrl}/todos/${id}`, {
@@ -73,8 +111,8 @@ function deleteTodo(id: number) {
         if (!response.ok) {
           throw new Error('Failed to delete ToDo')
         }
+        toDos.value = toDos.value.filter((todo) => todo.id !== id)
         showToast(new Toast('Success', 'ToDo deleted successfully', 'success', faCheck, 5))
-        ToDos.value = ToDos.value.filter((todo) => todo.id !== id)
       })
       .catch((error) => {
         showToast(new Toast('Error', error.message, 'error', faXmark, 10))
@@ -86,32 +124,167 @@ onMounted(fetchTodos)
 </script>
 
 <template>
-  <h1>Todos</h1>
-
-  <div v-if="ToDos.length === 0">
-    <p>No ToDos found</p>
+  <div class="header-container">
+    <h1>ToDos</h1>
+    <button class="create-button" @click="router.push('/create-todo')">+ Create ToDo</button>
   </div>
+
+  <!-- Filter -->
+  <div class="filter-container">
+    <label for="filter">Filter by Title:</label>
+    <input id="filter" v-model="searchQuery" type="text" placeholder="Enter title to filter" />
+  </div>
+
+  <!-- Sorting -->
+  <div class="sorting-container">
+    <label for="sort">Sort Todos:</label>
+    <select id="sort" v-model="currentSort">
+      <option value="titleAscending">Title (A-Z)</option>
+      <option value="titleDescending">Title (Z-A)</option>
+      <option value="dueDateAscending">Due Date (Earliest First)</option>
+      <option value="dueDateDescending">Due Date (Latest First)</option>
+    </select>
+  </div>
+
+  <!-- Unfinished Todos -->
+  <h2>Unfinished Todos</h2>
+  <div v-if="filteredUnfinishedToDos.length === 0">No unfinished Todos</div>
   <div v-else class="ToDoContainer">
-    <div v-for="todo in ToDos" :key="todo.id" class="ToDoCard">
+    <div v-for="todo in filteredUnfinishedToDos" :key="todo.id" class="ToDoCard">
       <h3>{{ todo.title }}</h3>
       <p>{{ todo.description }}</p>
-      <p>
-        Assigned To:
-        {{ todo.assigneeList.map((assignee) => assignee.prename + ' ' + assignee.name).join(', ') }}
-      </p>
+      <p>Assigned To: {{ todo.assigneeList.map((a) => a.prename + ' ' + a.name).join(', ') }}</p>
       <p>Due Date: {{ formatDate(todo.dueDate) }}</p>
-      <!-- Checkbox to mark the ToDo as finished -->
       <label>
         <input type="checkbox" :checked="todo.finished" @change="setFinished(todo)" />
         Mark as Finished
       </label>
-      <!-- Button to delete the ToDo -->
+      <button class="edit" @click="router.push(`/todos/${todo.id}`)">Edit</button>
       <button class="delete" @click="deleteTodo(todo.id)">Delete</button>
+    </div>
+  </div>
+
+  <!-- Finished Todos -->
+  <h2>
+    <button class="edit" @click="showFinished = !showFinished">
+      {{ showFinished ? 'Hide Finished Todos' : 'Show Finished Todos' }}
+    </button>
+  </h2>
+  <div v-if="showFinished">
+    <div v-if="filteredFinishedToDos.length === 0">No finished Todos</div>
+    <div v-else class="ToDoContainer">
+      <div v-for="todo in filteredFinishedToDos" :key="todo.id" class="ToDoCard">
+        <h3>{{ todo.title }}</h3>
+        <p>{{ todo.description }}</p>
+        <p>Assigned To: {{ todo.assigneeList.map((a) => a.prename + ' ' + a.name).join(', ') }}</p>
+        <p>Due Date: {{ formatDate(todo.dueDate) }}</p>
+        <p>Finished Date: {{ formatDate(todo.finishedDate!) }}</p>
+        <label>
+          <input type="checkbox" :checked="todo.finished" @change="setFinished(todo)" />
+          Mark as Unfinished
+        </label>
+        <button class="edit" @click="router.push(`/todos/${todo.id}`)">Edit</button>
+        <button class="delete" @click="deleteTodo(todo.id)">Delete</button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.create-button {
+  background-color: #2cec4c;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.create-button:hover {
+  background-color: #24cd40; /* Slightly darker green on hover */
+  transform: scale(1.05); /* Slight zoom-in */
+}
+
+.create-button:active {
+  background-color: #04ba22;
+  transform: scale(0.95);
+}
+
+/* Styling for the filter (search input) */
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.filter-container label {
+  font-size: 1.2rem;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.filter-container input {
+  width: 20%;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 1px solid #2cec4c;
+  border-radius: 5px;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+  background-color: white;
+  color: black;
+}
+
+.filter-container input:focus {
+  box-shadow: 0 0 8px #04ba22;
+}
+
+/* Styling for the sorting dropdown */
+.sorting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.sorting-container label {
+  font-size: 1.2rem;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.sorting-container select {
+  width: 20%;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 1px solid #2cec4c;
+  border-radius: 5px;
+  outline: none;
+  background-color: #ffffff;
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.sorting-container select:hover {
+  background-color: #f8f8f8;
+}
+
+.sorting-container select:focus {
+  box-shadow: 0 0 8px #04ba22;
+}
 .ToDoContainer {
   display: flex;
   flex-wrap: wrap; /* Allows wrapping to the next line if cards don't fit */
@@ -127,7 +300,7 @@ onMounted(fetchTodos)
   align-items: center;
   padding: 20px;
   margin: 15px;
-  border: 1px solid #42b983; /* Vue.js green */
+  border: 1px solid #2cec4c;
   border-radius: 10px;
   background-color: #ffffff; /* Bright white for better contrast */
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
@@ -185,6 +358,7 @@ button.delete {
   border-radius: 5px;
   transition: all 0.3s ease; /* Smooth transition for animations */
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  margin: 10px 0;
 }
 
 button.delete:hover {
@@ -195,6 +369,32 @@ button.delete:hover {
 
 button.delete:active {
   background-color: #a33a3a; /* Even darker red when active */
+  transform: scale(0.95); /* Slight shrink effect on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
+}
+
+button.edit {
+  background-color: #db8c0d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* Smooth transition for animations */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  margin: 10px 0;
+}
+
+button.edit:hover {
+  background-color: #e99309;
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+button.edit:active {
+  background-color: #bc7503;
   transform: scale(0.95); /* Slight shrink effect on click */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
 }

@@ -115,7 +115,7 @@ fetchAvailableAssignees()
       </div>
     </div>
 
-    <button type="submit" class="btn">Create</button>
+    <button class="create-btn">Create</button>
   </form>
 </template>
 
@@ -124,12 +124,12 @@ fetchAvailableAssignees()
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 400px;
+  width: 1000px;
   margin: 0 auto;
   background-color: #ffffff; /* White background */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
 }
 
 .form-group {
@@ -151,14 +151,18 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-  background-color: #b1b1b1;
+  background-color: white;
+}
+
+#dueDate {
+  background-color: #00000024;
 }
 
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: #42b983;
-  box-shadow: 0 0 5px rgba(66, 185, 131, 0.5);
+  border-color: #2cec4c;
+  box-shadow: 0 0 8px #04ba22;
 }
 
 .assignee-list {
@@ -180,7 +184,7 @@ textarea:focus {
 }
 
 .assignee-item:hover {
-  background-color: #e6f4ea; /* Light green for hover */
+  background-color: #bcffc6;
 }
 
 button {
@@ -190,6 +194,15 @@ button {
   cursor: pointer;
   font-weight: bold;
   font-size: 0.9rem;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* Smooth transition for animations */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  margin: 10px 0;
 }
 
 button.selected {
@@ -198,7 +211,7 @@ button.selected {
 }
 
 button:hover {
-  background-color: #42b983; /* Vue.js green */
+  background-color: #2cec4c;
   color: white;
 }
 
@@ -208,12 +221,12 @@ button:disabled {
 }
 
 button.add {
-  background-color: #42b983;
+  background-color: #2cec4c;
   color: white;
 }
 
 button.add:hover {
-  background-color: #359670;
+  background-color: #2cec2c;
 }
 
 h1 {
@@ -228,16 +241,29 @@ textarea {
   resize: none;
 }
 
-button.create {
-  width: 100%;
-  background-color: #42b983;
+button.create-btn {
+  background-color: #2cec4c;
   color: white;
-  font-size: 1.1rem;
-  padding: 12px;
-  margin-top: 10px;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* Smooth transition for animations */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  margin: 10px 0;
 }
 
-button.create:hover {
-  background-color: #359670;
+button.create-btn:hover {
+  background-color: #24cd40;
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+button.create-btn:active {
+  background-color: #04ba22;
+  transform: scale(0.95); /* Slight shrink effect on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
 }
 </style>

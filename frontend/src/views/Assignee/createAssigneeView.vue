@@ -69,28 +69,52 @@ function handleSubmit() {
   margin: 0 auto; /* Center the form */
 }
 
+.form-container input {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 1px solid #2cec4c;
+  border-radius: 5px;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+  background-color: white;
+  color: black;
+}
+
 form label {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 form input {
+  background-color: white;
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  color: black;
+  border: 1px solid #2cec4c;
+}
+form input:focus {
+  box-shadow: 0 0 8px #04ba22;
 }
 
-form button {
-  padding: 10px;
-  background-color: #42b983;
+button {
+  background-color: #2cec4c;
   color: white;
   border: none;
-  border-radius: 4px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
 }
 
-form button:hover {
-  background-color: #369e72;
+button:hover {
+  background-color: #24cd40; /* Darker green on hover */
+}
+button:active {
+  background-color: #04ba22; /* Even darker green when active */
 }
 </style>

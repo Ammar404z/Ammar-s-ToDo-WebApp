@@ -79,23 +79,23 @@ onMounted(() => {
     <div v-if="loading">Loading assignee...</div>
     <div v-else>
       <form @submit.prevent="updateAssignee">
-        <div>
+        <div class="form-group">
           <label for="prename">Prename:</label>
           <input v-model="assignee.prename" id="prename" type="text" required />
         </div>
 
-        <div>
+        <div class="form-group">
           <label for="name">Name:</label>
           <input v-model="assignee.name" id="name" type="text" required />
         </div>
 
-        <div>
+        <div class="form-group">
           <label for="email">Email:</label>
           <input v-model="assignee.email" id="email" type="email" required />
         </div>
 
-        <button type="submit" :disabled="loading">Save</button>
-        <button type="button" @click="router.push('/assignees')">Cancel</button>
+        <button class="save">Save</button>
+        <button class="cancel" @click="router.push('/assignees')">Cancel</button>
       </form>
     </div>
   </div>
@@ -105,70 +105,79 @@ onMounted(() => {
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  gap: 15px; /* Adds space between each form group */
+  max-width: 400px; /* Limit the width for better readability */
+  margin: 0 auto; /* Center the form horizontally */
 }
 
-h1 {
-  font-size: 2rem;
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+.form-group {
+  display: flex;
+  flex-direction: column; /* Align label and input vertically */
 }
 
 label {
   font-weight: bold;
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 5px;
+  margin-bottom: 5px; /* Space between label and input */
 }
 
 input {
   padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
+  font-size: 1rem;
+  border: 1px solid #2cec4c;
   border-radius: 5px;
-  transition: border-color 0.3s ease;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+  background-color: white;
 }
 
 input:focus {
-  outline: none;
-  border-color: #42b983;
+  box-shadow: 0 0 8px #04ba22;
 }
 
-button {
-  padding: 10px 15px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #42b983;
+.save {
+  background-color: #2cec4c;
   color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* Smooth transition for animations */
 }
-
-button:hover {
-  background-color: #359670;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-button.cancel {
+.cancel {
   background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* Smooth transition for animations */
 }
 
-button.cancel:hover {
-  background-color: #c0392b;
+.save:hover {
+  background-color: #24cd40; /* Darker green on hover */
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+.save:active {
+  background-color: #04ba22; /* Even darker green when active */
+  transform: scale(0.95); /* Slight shrink effect on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
+}
+.cancel:hover {
+  background-color: #cc4444; /* Darker red on hover */
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+.cancel:active {
+  background-color: #a33a3a; /* Even darker red when active */
+  transform: scale(0.95); /* Slight shrink effect on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
 }
 
 .error {

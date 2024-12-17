@@ -18,13 +18,7 @@ import 'agnostic-vue/dist/index.css'
           <RouterLink to="/assignees">Assignees</RouterLink>
         </HeaderNavItem>
         <HeaderNavItem>
-          <RouterLink to="/create-assignee">Create an Assignee</RouterLink>
-        </HeaderNavItem>
-        <HeaderNavItem>
           <RouterLink to="/todos">ToDos</RouterLink>
-        </HeaderNavItem>
-        <HeaderNavItem>
-          <RouterLink to="/create-todo">Create a ToDo</RouterLink>
         </HeaderNavItem>
       </template>
     </Header>
@@ -58,5 +52,27 @@ import 'agnostic-vue/dist/index.css'
 <style scoped>
 .main {
   padding: 10px 20px;
+}
+
+/* App.vue Scoped CSS */
+header {
+  background-color: #2c3e50; /* Vue.js Indigo */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+header a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+header a:hover {
+  color: #42b983; /* Vue Green */
 }
 </style>
