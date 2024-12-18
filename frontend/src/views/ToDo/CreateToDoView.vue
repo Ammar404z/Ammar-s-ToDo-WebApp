@@ -116,6 +116,7 @@ fetchAvailableAssignees()
     </div>
 
     <button class="create-btn">Create</button>
+    <button class="cancel-btn" @click="router.push('/todos')">Cancel</button>
   </form>
 </template>
 
@@ -263,6 +264,32 @@ button.create-btn:hover {
 
 button.create-btn:active {
   background-color: #04ba22;
+  transform: scale(0.95); /* Slight shrink effect on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
+}
+
+button.cancel-btn {
+  background-color: #ff5555;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* Smooth transition for animations */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  margin: 10px 0;
+}
+
+button.cancel-btn:hover {
+  background-color: #cc4444;
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+button.cancel-btn:active {
+  background-color: #a33a3a;
   transform: scale(0.95); /* Slight shrink effect on click */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
 }

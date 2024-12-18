@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import config from '@/config'
+import router from '@/router'
 import { showToast, Toast } from '@/ts/toasts'
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { ref } from 'vue'
@@ -40,6 +41,10 @@ function handleSubmit() {
   newPrename.value = ''
   newName.value = ''
   newEmail.value = ''
+  router.push('/assignees')
+}
+function cancel() {
+  router.push('/assignees')
 }
 </script>
 
@@ -55,7 +60,8 @@ function handleSubmit() {
     <label for="email">Email:</label>
     <input v-model="newEmail" id="email" type="email" required />
 
-    <button type="submit">Create</button>
+    <button class="save">Create</button>
+    <button class="cancel" @click="cancel">Cancel</button>
   </form>
 </template>
 
@@ -98,7 +104,7 @@ form input:focus {
   box-shadow: 0 0 8px #04ba22;
 }
 
-button {
+.save {
   background-color: #2cec4c;
   color: white;
   border: none;
@@ -107,14 +113,40 @@ button {
   font-weight: bold;
   cursor: pointer;
   border-radius: 5px;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease; /* Smooth transition for animations */
+}
+.cancel {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* Smooth transition for animations */
 }
 
-button:hover {
+.save:hover {
   background-color: #24cd40; /* Darker green on hover */
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
 }
-button:active {
+
+.save:active {
   background-color: #04ba22; /* Even darker green when active */
+  transform: scale(0.95); /* Slight shrink effect on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
+}
+.cancel:hover {
+  background-color: #cc4444; /* Darker red on hover */
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+.cancel:active {
+  background-color: #a33a3a; /* Even darker red when active */
+  transform: scale(0.95); /* Slight shrink effect on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow */
 }
 </style>
