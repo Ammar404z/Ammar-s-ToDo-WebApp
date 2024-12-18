@@ -19,7 +19,6 @@ import org.springframework.web.server.ResponseStatusException;
 import de.unistuttgart.iste.ese.api.ApiVersion1;
 import de.unistuttgart.iste.ese.api.Assignee.Assignee;
 import de.unistuttgart.iste.ese.api.Assignee.AssigneeRepository;
-import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 
 @RestController

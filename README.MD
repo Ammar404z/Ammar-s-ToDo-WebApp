@@ -12,43 +12,62 @@ Stellen Sie sicher, dass die folgenden Programme auf Ihrem System installiert si
 - Java 21 oder höher
 - Maven 3.8.0 oder höher
 - MariaDB (lokal oder remote)
+- Node.js
+- npm
 - Git
 
 ## Konfiguration
-
-1. Stellen Sie sicher, dass Ihre MariaDB-Instanz läuft.
-
-## Ausführung
 
 1. Klonen Sie das Repository:
 
 git clone https://github.tik.uni-stuttgart.de/iste-pe2-2024/repo086.git
 
-2. Navigiere zum Repository: (wichtig: zu den api Ordner)
+2. Stellen Sie sicher, dass Ihre MariaDB-Instanz läuft.
+   • Achten Sie darauf, dass die MariaDB-Instanz korrekt konfiguriert und erreichbar ist. (username: root, Password: root).
+
+## Ausführung Backend
+
+1. Navigiere zum Repository: (wichtig: zu den api Ordner)
 
 cd repo086/api
 
-2. Bauen und starten Sie die Anwendung mit Maven:
+2. Installieren Sie die Dependencies mit:
+
+mvn install
+
+3. Bauen und starten Sie die Anwendung mit Maven:
 
 mvn spring-boot:run
 
-3. Die API ist nun unter http://localhost:8080/api/v1/ verfügbar.
+4. Die API (Backend) ist nun unter http://localhost:8080/api/v1/ verfügbar.
 
-## Beispiel-Endpoints
+## Ausführung Frontend
 
-    •	ToDo Endpunkte
-    •	GET: /api/v1/todos
-    •	POST: /api/v1/todos
-    •	PUT: /api/v1/todos/{id}
-    •	DELETE: /api/v1/todos/{id}
+1. Navigiere zum Repository: (wichtig: zu den Frontend Ordner)
 
-    •	Assignee Endpunkte
-    •	GET: /api/v1/assignees
-    •	POST: /api/v1/assignees
-    •	PUT: /api/v1/assignees/{id}
-    •	DELETE: /api/v1/assignees/{id}
+cd repo086/frontend
 
-## Wichtige Hinweise
+2. Installieren Sie die Dependencies mit:
 
-    •	Verwenden Sie Postman oder ein ähnliches Tool, um die Endpunkte zu testen.
-    •	Achten Sie darauf, dass die MariaDB-Instanz korrekt konfiguriert und erreichbar ist. (username: root, Password: root).
+npm install
+
+3. Bauen und starten Sie die Anwendung mit npm:
+
+npm run dev
+
+4. Das Frontend ist nun unter http://localhost:8081/ verfügbar.
+
+## Features
+
+- **ToDos**: Erstellen, Bearbeiten, Löschen und Filtern von Aufgaben.
+- **Assignees**: Verwaltung der Personen, die für Aufgaben verantwortlich sind.
+- **Filter und Sortierung**:
+  - Filtern von ToDos nach Titel (Substring-Filterung).
+  - Sortieren der ToDos nach Titel und Fälligkeitsdatum (aufsteigend/absteigend).
+- **Abgeschlossene Aufgaben**: Abgeschlossene ToDos können separat angezeigt werden.
+
+## Technologien
+
+- **Frontend**: Vue.js 3 mit Composition API
+- **Styling**: Agnostic UI, CSS
+- **Backend**: RESTful API (Spring Boot)
