@@ -39,6 +39,7 @@ public class ToDo {
 
     private long finishedDate;
 
+    private String category;
 
     //empty default constructor for JPA
     public ToDo(){}
@@ -118,5 +119,11 @@ public class ToDo {
         this.finishedDate = finishedDate;
     }
 
+    public String getCategory() {
+        return category;
+    }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

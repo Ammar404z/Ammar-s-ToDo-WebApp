@@ -14,6 +14,7 @@ interface ToDo {
   createdDate: number
   dueDate: number
   finishedDate: number | null
+  category: string
 }
 // Reactive properties
 const toDos: Ref<ToDo[]> = ref([])
@@ -155,6 +156,7 @@ onMounted(fetchTodos)
       <p>{{ todo.description }}</p>
       <p>Assigned To: {{ todo.assigneeList.map((a) => a.prename + ' ' + a.name).join(', ') }}</p>
       <p>Due Date: {{ formatDate(todo.dueDate) }}</p>
+      <p>Category: {{ todo.category }}</p>
       <label>
         <input type="checkbox" :checked="todo.finished" @change="setFinished(todo)" />
         Mark as Finished
@@ -179,6 +181,7 @@ onMounted(fetchTodos)
         <p>Assigned To: {{ todo.assigneeList.map((a) => a.prename + ' ' + a.name).join(', ') }}</p>
         <p>Due Date: {{ formatDate(todo.dueDate) }}</p>
         <p>Finished Date: {{ formatDate(todo.finishedDate!) }}</p>
+        <p>Category: {{ todo.category }}</p>
         <label>
           <input type="checkbox" :checked="todo.finished" @change="setFinished(todo)" />
           Mark as Unfinished

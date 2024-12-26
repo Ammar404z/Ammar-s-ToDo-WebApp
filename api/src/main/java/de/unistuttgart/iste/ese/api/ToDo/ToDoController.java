@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;  ///could this be the problem ?
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -71,6 +71,11 @@ public class ToDoController {
             }
 
         }
+        // find out the category of the todo using the todo model
+        String modelPath = "/resources/model.pmml";
+        TodoModel todoModel = new TodoModel(modelPath); //load the model
+        String predictedCategory = todoModel.predictClass(toDoReq.getTitle());
+        todoModel.unloadModel();
 
         //now we create our ToDo Object with all our needed Attributes (mapping step)
         ToDo toDo = new ToDo();
@@ -80,6 +85,7 @@ public class ToDoController {
         toDo.setAssigneeList(assignees); // Set the mapped assignees
         toDo.setCreatedDate(System.currentTimeMillis());
         toDo.setDueDate(toDoReq.getDueDate());
+        toDo.setCategory(predictedCategory);
 
         return toDoRepository.save(toDo);
     }
@@ -113,6 +119,11 @@ public class ToDoController {
 
             
         }
+        // find out the category of the todo using the todo model
+        String modelPath = "/resources/model.pmml";
+        TodoModel todoModel = new TodoModel(modelPath); //load the model
+        String predictedCategory = todoModel.predictClass(toDoReq.getTitle());
+        todoModel.unloadModel();
 
         existingToDo.setTitle(toDoReq.getTitle());
         existingToDo.setDescription(toDoReq.getDescription());
@@ -120,7 +131,8 @@ public class ToDoController {
         existingToDo.setAssigneeList(assignees);
         existingToDo.setDueDate(toDoReq.getDueDate() != null ? toDoReq.getDueDate() : existingToDo.getDueDate()); // if the dueDate is null, keep the existing date, otherwise update it.
         existingToDo.setFinishedDate(toDoReq.isFinished() ? System.currentTimeMillis() : 0); // if the todo is finished, set the finishedDate, otherwise keep it 0. 
- 
+        existingToDo.setCategory(predictedCategory);
+
         return toDoRepository.save(existingToDo);
 
 
