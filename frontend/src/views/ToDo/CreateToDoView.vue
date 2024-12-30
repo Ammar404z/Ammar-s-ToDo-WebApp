@@ -42,7 +42,7 @@ function toggleAssigneeSelection(assigneeId: number) {
 
 // Create a new ToDo
 function createToDo() {
-  if (!title.value || !description.value || !dueDate.value) {
+  if (!title.value.trim()) {
     showToast(new Toast('Error', 'Please fill in all required fields', 'error', faXmark))
     return
   }
@@ -50,7 +50,10 @@ function createToDo() {
   const newToDo = {
     title: title.value,
     description: description.value,
-    dueDate: new Date(dueDate.value).getTime(), // Convert to timestamp
+    dueDate:
+      dueDate.value && !isNaN(new Date(dueDate.value).getTime())
+        ? new Date(dueDate.value).getTime()
+        : null, // Ensure valid timestamp or null, // Convert to timestamp
     assigneeIdList: selectedAssignees.value // Assigned IDs
   }
 
@@ -89,14 +92,13 @@ fetchAvailableAssignees()
       <textarea
         id="description"
         v-model="description"
-        required
         placeholder="Enter ToDo description"
       ></textarea>
     </div>
 
     <div class="form-group">
       <label for="dueDate">Due Date:</label>
-      <input id="dueDate" v-model="dueDate" type="date" required />
+      <input id="dueDate" v-model="dueDate" type="date" />
     </div>
 
     <div class="form-group">

@@ -73,8 +73,16 @@ function fetchTodos() {
 }
 
 // Format date
-function formatDate(timestamp: number): string {
+function formatDate(timestamp: number | null | undefined): string {
+  if (!timestamp) {
+    // Handle null or undefined timestamp
+    return ''
+  }
   const date = new Date(timestamp)
+  // Ensure the date is valid before formatting
+  if (isNaN(date.getTime())) {
+    return 'Invalid Date'
+  }
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -153,7 +161,7 @@ onMounted(fetchTodos)
   <div v-else class="ToDoContainer">
     <div v-for="todo in filteredUnfinishedToDos" :key="todo.id" class="ToDoCard">
       <h3>{{ todo.title }}</h3>
-      <p>{{ todo.description }}</p>
+      <p>Description: {{ todo.description }}</p>
       <p>Assigned To: {{ todo.assigneeList.map((a) => a.prename + ' ' + a.name).join(', ') }}</p>
       <p>Due Date: {{ formatDate(todo.dueDate) }}</p>
       <p>Category: {{ todo.category }}</p>
