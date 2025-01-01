@@ -36,6 +36,7 @@ const fetchToDoById = async (id: number) => {
       throw new Error(`Failed to fetch ToDo with ID ${id}: ${response.statusText}`)
     }
     toDo.value = await response.json()
+    console.log('Fetched ToDo:', toDo.value) // Debug: Check the assigneeList
   } catch (error: any) {
     console.error('Error fetching ToDo:', error)
     showToast(new Toast('Error', error.message, 'error', faXmark))
@@ -59,6 +60,12 @@ const fetchAllAssignees = async () => {
 // Toggle assignee selection
 const toggleAssignee = (id: number) => {
   if (!toDo.value) return
+
+  // Ensure assigneeList is always initialized
+  if (!toDo.value.assigneeList) {
+    toDo.value.assigneeList = []
+  }
+
   const isSelected = toDo.value.assigneeList.some((a) => a.id === id)
 
   if (isSelected) {
@@ -68,7 +75,7 @@ const toggleAssignee = (id: number) => {
     // Add assignee
     const assignee = allAssignees.value.find((a) => a.id === id)
     if (assignee) {
-      toDo.value.assigneeList = [...toDo.value.assigneeList, assignee]
+      toDo.value.assigneeList.push(assignee) // Use push instead of creating a new array
     }
   }
 }
@@ -129,7 +136,7 @@ onMounted(() => {
 
       <div>
         <label for="description">Description:</label>
-        <textarea v-model="toDo.description" id="description" required></textarea>
+        <textarea v-model="toDo.description" id="description"></textarea>
       </div>
 
       <div>
@@ -147,7 +154,7 @@ onMounted(() => {
           </div>
           <div>
             <label for="dueDate">Due Date:</label>
-            <input v-model="toDo.dueDate" type="date" id="dueDate" required />
+            <input v-model="toDo.dueDate" type="date" id="dueDate" />
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ interface ToDo {
   title: string
   description: string
   finished: boolean
-  assigneeList: { prename: string; name: string }[]
+  assigneeList: { id: number; prename: string; name: string }[]
   createdDate: number
   dueDate: number
   finishedDate: number | null
@@ -92,18 +92,38 @@ function formatDate(timestamp: number | null | undefined): string {
 
 // Mark ToDo as finished/unfinished
 async function setFinished(todo: ToDo) {
+  // Toggle the finished status
   todo.finished = !todo.finished
+
+  // Update the finishedDate based on the new finished status
   todo.finishedDate = todo.finished ? Date.now() : null
 
   try {
+    // Prepare the payload with all current data, ensuring the assignee list is preserved
+    const payload = {
+      id: todo.id,
+      title: todo.title,
+      description: todo.description,
+      finished: todo.finished,
+      assigneeIdList: todo.assigneeList.map((assignee) => assignee.id), // Map assigneeList to IDs
+      createdDate: todo.createdDate,
+      dueDate: todo.dueDate,
+      finishedDate: todo.finishedDate,
+      category: todo.category
+    }
+
+    // Send the PUT request
     const response = await fetch(`${config.apiBaseUrl}/todos/${todo.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(todo)
+      body: JSON.stringify(payload)
     })
+
+    // Handle response
     if (!response.ok) {
       throw new Error('Failed to update ToDo status')
     }
+
     showToast(new Toast('Success', 'ToDo status updated successfully', 'success', faCheck, 5))
   } catch (error: any) {
     showToast(new Toast('Error', error.message, 'error', faXmark, 10))

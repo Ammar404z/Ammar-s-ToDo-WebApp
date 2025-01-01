@@ -53,7 +53,7 @@ function createToDo() {
     dueDate:
       dueDate.value && !isNaN(new Date(dueDate.value).getTime())
         ? new Date(dueDate.value).getTime()
-        : null, // Ensure valid timestamp or null, // Convert to timestamp
+        : null, // Ensure valid timestamp or null
     assigneeIdList: selectedAssignees.value // Assigned IDs
   }
 
