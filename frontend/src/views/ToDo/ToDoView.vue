@@ -148,6 +148,27 @@ function deleteTodo(id: number) {
       })
   }
 }
+function downloadCsv() {
+  fetch(`${config.apiBaseUrl}/csv-downloads/todos`) // Fetch data from the backend endpoint
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to download CSV')
+      }
+      return response.blob() // Convert the response into a Blob (binary large object)
+    })
+    .then((blob) => {
+      const url = window.URL.createObjectURL(blob) // Create a temporary URL for the blob
+      const a = document.createElement('a') // Create an anchor element
+      a.href = url // Assign the blob URL to the anchor's href
+      a.download = 'todos.csv' // Specify the filename for the download
+      document.body.appendChild(a) // Add the anchor to the DOM
+      a.click() // Simulate a click to trigger the download
+      a.remove() // Remove the anchor from the DOM after triggering the download
+    })
+    .catch((error) => {
+      showToast(new Toast('Error', error.message, 'error', faXmark, 10)) // Handle errors and show a toast notification
+    })
+}
 
 onMounted(fetchTodos)
 </script>
@@ -155,7 +176,10 @@ onMounted(fetchTodos)
 <template>
   <div class="header-container">
     <h1>ToDos</h1>
-    <button class="create-button" @click="router.push('/create-todo')">+ Create ToDo</button>
+    <div class="header-container-buttons">
+      <button class="create-button" @click="router.push('/create-todo')">+ Create ToDo</button>
+      <button class="download-button" @click="downloadCsv()">Download CSV</button>
+    </div>
   </div>
 
   <!-- Filter -->
@@ -224,9 +248,20 @@ onMounted(fetchTodos)
 <style scoped>
 .header-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; /* Place content on opposite ends */
+  align-items: center; /* Align items vertically */
   margin-bottom: 20px;
+}
+
+.header-container h1 {
+  margin: 0; /* Reset margin to ensure proper alignment */
+}
+
+.header-container-buttons {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Add spacing between the buttons */
 }
 
 .create-button {
@@ -249,6 +284,29 @@ onMounted(fetchTodos)
 
 .create-button:active {
   background-color: #04ba22;
+  transform: scale(0.95);
+}
+
+.download-button {
+  background-color: #db8c0d;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.download-button:hover {
+  background-color: #e99309;
+  transform: scale(1.05); /* Slight zoom-in */
+}
+
+.download-button:active {
+  background-color: #bc7503;
   transform: scale(0.95);
 }
 
