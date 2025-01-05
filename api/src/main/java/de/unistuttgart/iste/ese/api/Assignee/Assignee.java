@@ -13,11 +13,11 @@ import jakarta.validation.constraints.Size;
  * Represents an Assignee entity in the ToDo application.
  * Contains details about an assignee such as prename, name, and email.
  * 
- * <p>
+ * 
  * Validation rules ensure:
  * - Prename and name must not be null or empty.
  * - Email must match the pattern of a valid Uni-Stuttgart email.
- * </p>
+ * 
  */
 @Entity
 @Table(name = "assignees")

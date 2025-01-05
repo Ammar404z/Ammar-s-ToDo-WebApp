@@ -16,7 +16,6 @@ import org.xml.sax.SAXException;
 
 import jakarta.xml.bind.JAXBException;
 
-
 /**
  * A class for loading and using a PMML-based Todo classification model.
  */
@@ -43,8 +42,8 @@ public class TodoModel {
         // Building a model evaluator from a PMML file
         try {
             this.evaluator = new LoadingModelEvaluatorBuilder()
-                .load(getClass().getClassLoader().getResourceAsStream("model.pmml"))
-                .build();
+                    .load(getClass().getClassLoader().getResourceAsStream("model.pmml"))
+                    .build();
         } catch (ParserConfigurationException | SAXException | JAXBException e) {
             LOG.error("Could not load AI model:", e);
             this.evaluator = null;

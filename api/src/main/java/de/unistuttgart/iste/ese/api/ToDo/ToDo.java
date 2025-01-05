@@ -13,8 +13,12 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Entity class representing a ToDo item.
+ * Maps to the "todos" table in the database.
+ */
 @Entity
-@Table(name ="todos")
+@Table(name = "todos")
 public class ToDo {
 
     @Id
@@ -34,17 +38,33 @@ public class ToDo {
 
     private long createdDate;
 
-@PositiveOrZero(message = "DueDate must be a valid Unix timestamp in milliseconds")
+    @PositiveOrZero(message = "DueDate must be a valid Unix timestamp in milliseconds")
     private Long dueDate;
 
     private long finishedDate;
 
+    /**
+     * Category of the ToDo (e.g., "work", "personal").
+     */
     private String category;
 
-    //empty default constructor for JPA
-    public ToDo(){}
+    // empty default constructor for JPA
+    public ToDo() {
+    }
 
-    public ToDo(String title, String description, boolean finished, List<Assignee> assigneeList, long createdDate, long dueDate, long finishedDate) {
+    /**
+     * Parameterized constructor to create a new ToDo instance.
+     *
+     * @param title        Title of the ToDo.
+     * @param description  Description of the ToDo.
+     * @param finished     Indicates whether the ToDo is finished or not.
+     * @param assigneeList List of assignees associated with the ToDo.
+     * @param createdDate  Creation date of the ToDo.
+     * @param dueDate      Due date of the ToDo.
+     * @param finishedDate Finished date of the ToDo.
+     */
+    public ToDo(String title, String description, boolean finished, List<Assignee> assigneeList, long createdDate,
+            long dueDate, long finishedDate) {
 
         this.title = title;
         this.description = description;
@@ -54,6 +74,8 @@ public class ToDo {
         this.dueDate = dueDate;
         this.finishedDate = finishedDate;
     }
+
+    // Getter and setter methods
 
     public long getId() {
         return id;
