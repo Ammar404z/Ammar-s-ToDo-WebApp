@@ -45,6 +45,7 @@ public class ToDo {
 
     /**
      * Category of the ToDo (e.g., "work", "personal").
+     * This attribute is set by the ML model
      */
     private String category;
 
