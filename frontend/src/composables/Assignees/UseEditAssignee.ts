@@ -11,11 +11,19 @@ interface Assignee {
   email: string
 }
 
+/**
+ * This composable manages logic for editing an existing assignee.
+ */
 export function useAssignee() {
   const router = useRouter()
   const assignee = ref<Assignee | null>(null)
   const loading = ref(true)
 
+  /**
+   * Fetches the details of an assignee by their ID.
+   *
+   * @param id - The ID of the assignee to fetch.
+   */
   const fetchAssigneeById = async (id: number) => {
     try {
       const response = await fetch(`${config.apiBaseUrl}/assignees/${id}`)
@@ -36,6 +44,9 @@ export function useAssignee() {
     }
   }
 
+  /**
+   * Updates the details of the currently selected assignee.
+   */
   const updateAssignee = async () => {
     if (!assignee.value) return
 

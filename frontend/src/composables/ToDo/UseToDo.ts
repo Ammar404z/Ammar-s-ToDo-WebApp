@@ -16,6 +16,9 @@ interface ToDo {
   category: string
 }
 
+/**
+ * This composable manages the logic for handling ToDo items, including fetching, filtering, sorting, and updating them.
+ */
 export function useToDo() {
   // Reactive properties
   const toDos: Ref<ToDo[]> = ref([])
@@ -56,7 +59,9 @@ export function useToDo() {
     }
   }
 
-  // Fetch all ToDos from the API
+  /**
+   * Fetches all ToDo items from the backend and updates the `toDos` reactive property.
+   */
   function fetchTodos() {
     fetch(`${config.apiBaseUrl}/todos`)
       .then((response) => {
@@ -73,7 +78,6 @@ export function useToDo() {
       })
   }
 
-  // Format date
   function formatDate(timestamp: number | null | undefined): string {
     if (!timestamp) {
       // Handle null or undefined timestamp
@@ -91,7 +95,11 @@ export function useToDo() {
     })
   }
 
-  // Mark ToDo as finished/unfinished
+  /**
+   * Marks a ToDo as finished or unfinished and updates its `finishedDate` accordingly.
+   *
+   * @param todo - The ToDo item to toggle.
+   */
   async function setFinished(todo: ToDo) {
     // Toggle the finished status
     todo.finished = !todo.finished
@@ -131,7 +139,11 @@ export function useToDo() {
     }
   }
 
-  // Delete ToDo
+  /**
+   * Deletes a ToDo item by its ID after user confirmation.
+   *
+   * @param id - The ID of the ToDo to delete.
+   */
   function deleteTodo(id: number) {
     if (confirm('Are you sure you want to delete this ToDo?')) {
       fetch(`${config.apiBaseUrl}/todos/${id}`, {
@@ -149,6 +161,10 @@ export function useToDo() {
         })
     }
   }
+
+  /**
+   * Initiates the download of all ToDo items as a CSV file.
+   */
   function downloadCsv() {
     fetch(`${config.apiBaseUrl}/csv-downloads/todos`) // Fetch data from the backend endpoint
       .then((response) => {

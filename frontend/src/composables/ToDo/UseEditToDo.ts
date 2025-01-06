@@ -20,6 +20,10 @@ interface ToDo {
   dueDate: number
   finishedDate: number | null
 }
+
+/**
+ * This composable manages logic for editing an existing ToDo item.
+ */
 export function useEditToDo() {
   const route = useRoute()
   const router = useRouter()
@@ -27,7 +31,11 @@ export function useEditToDo() {
   const loading = ref(true)
   const allAssignees = ref<Assignee[]>([])
 
-  // Fetch a ToDo by ID
+  /**
+   * Fetches a ToDo item by its ID and updates the reactive property `toDo`.
+   *
+   * @param id - The ID of the ToDo to fetch.
+   */
   const fetchToDoById = async (id: number) => {
     try {
       const response = await fetch(`${config.apiBaseUrl}/todos/${id}`)
@@ -44,7 +52,9 @@ export function useEditToDo() {
     }
   }
 
-  // Fetch all assignees
+  /**
+   * Fetches a list of all available assignees.
+   */
   const fetchAllAssignees = async () => {
     try {
       const response = await fetch(`${config.apiBaseUrl}/assignees`)
@@ -56,7 +66,11 @@ export function useEditToDo() {
     }
   }
 
-  // Toggle assignee selection
+  /**
+   * Toggles the selection of an assignee for the ToDo being edited.
+   *
+   * @param id - The ID of the assignee to toggle.
+   */
   const toggleAssignee = (id: number) => {
     if (!toDo.value) return
 
@@ -83,7 +97,9 @@ export function useEditToDo() {
     return new Date(dateString).getTime()
   }
 
-  // Update ToDo
+  /**
+   * Updates the current ToDo item with the edited data.
+   */
   const updateToDo = async () => {
     if (!toDo.value) return
 

@@ -11,8 +11,14 @@ interface Assignee {
 }
 
 const assignees: Ref<Assignee[]> = ref([])
+
+/**
+ * This composable manages all logic related to fetching, listing, and deleting assignees.
+ */
 export function useAssignees() {
-  // Fetch all assignees
+  /**
+   * Fetches all available assignees from the backend and updates the `assignees` reactive property.
+   */
   function fetchAllAssignees() {
     fetch(`${config.apiBaseUrl}/assignees`)
       .then((response) => {
@@ -30,7 +36,11 @@ export function useAssignees() {
       })
   }
 
-  // Delete an assignee
+  /**
+   * Deletes a specific assignee by their ID after user confirmation.
+   *
+   * @param id - The ID of the assignee to delete.
+   */
   function deleteAssignee(id: number) {
     if (confirm('Are you sure you want to delete this assignee?')) {
       fetch(`${config.apiBaseUrl}/assignees/${id}`, {
