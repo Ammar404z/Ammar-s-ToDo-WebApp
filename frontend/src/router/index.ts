@@ -1,10 +1,10 @@
 import AssigneesView from '@/views/Assignee/AssigneesView.vue'
-import createAssigneeView from '@/views/Assignee/createAssigneeView.vue'
-import editAssigneeView from '@/views/Assignee/editAssigneeView.vue'
+import createAssigneeView from '@/views/Assignee/CreateAssigneeView.vue'
+import editAssigneeView from '@/views/Assignee/EditAssigneeView.vue'
 import Home from '@/views/Home.vue'
 import CreateToDoView from '@/views/ToDo/CreateToDoView.vue'
+import editToDosView from '@/views/ToDo/EditToDosView.vue'
 import ToDoView from '@/views/ToDo/ToDoView.vue'
-import editTodosview from '@/views/ToDo/editTodosview.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
@@ -43,7 +43,7 @@ const router = createRouter({
     {
       path: '/todos/:id',
       name: 'edit-todos',
-      component: editTodosview
+      component: editToDosView
     }
   ]
 })

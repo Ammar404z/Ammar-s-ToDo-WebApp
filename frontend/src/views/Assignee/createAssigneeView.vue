@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCreateAssignee } from '@/composables/Assignees/useCreateAssignee'
+import { useCreateAssignee } from '@/composables/Assignees/UseCreateAssignee'
 
 const { newPrename, newName, newEmail, handleSubmit, cancel } = useCreateAssignee()
 </script>
