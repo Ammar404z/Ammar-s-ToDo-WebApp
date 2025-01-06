@@ -1,17 +1,23 @@
 <script setup lang="ts">
+/**
+ * The EditAssigneeView component allows users to edit the details of an existing assignee.
+ * It provides fields for editing the first name, last name, and email of the selected assignee.
+ */
+import { useAssignee } from '@/composables/Assignees/UseEditAssignee'
 import { showToast, Toast } from '@/ts/toasts'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { useAssignee } from '@/composables/Assignees/useEditAssignee'
 
+// Reactive properties and methods for assignee management
 const route = useRoute()
 const { assignee, loading, fetchAssigneeById, updateAssignee } = useAssignee()
 
-// Load the assignee on mount
+/**
+ * Fetch the assignee details based on the route parameter when the component is mounted.
+ */
 onMounted(() => {
   const id = parseInt(route.params.id as string, 10)
-  console.log('Route parameter ID:', id) // Debugging log
   if (!isNaN(id)) {
     fetchAssigneeById(id)
   } else {

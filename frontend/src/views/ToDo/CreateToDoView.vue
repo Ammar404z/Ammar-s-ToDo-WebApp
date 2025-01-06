@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+/**
+ * The CreateToDoView component allows users to create a new ToDo item.
+ * It provides fields for entering the title, description, due date, and assignees.
+ */
 import { useCreateTodo } from '@/composables/ToDo/UseCreateToDo'
+import { useRouter } from 'vue-router'
 
+// Reactive properties and methods for ToDo creation
 const router = useRouter()
 const {
   title,
@@ -14,7 +19,7 @@ const {
   createToDo
 } = useCreateTodo()
 
-// Fetch available assignees when mounted
+// Fetch available assignees when the component is mounted
 fetchAvailableAssignees()
 </script>
 

@@ -1,11 +1,18 @@
 <script setup lang="ts">
+/**
+ * The AssigneesView component is responsible for displaying all assignees,
+ * providing the ability to navigate to the "Create Assignee" page,
+ * and allowing users to edit or delete existing assignees.
+ */
+import { useAssignees } from '@/composables/Assignees/UseAssignees'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAssignees } from '@/composables/Assignees/UseAssignees'
 
+// Reactive properties and methods for assignee handling
 const { assignees, fetchAllAssignees, deleteAssignee } = useAssignees()
 const router = useRouter()
 
+// Fetch all assignees when the component is mounted
 onMounted(fetchAllAssignees)
 </script>
 

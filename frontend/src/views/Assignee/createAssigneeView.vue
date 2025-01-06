@@ -1,6 +1,11 @@
 <script setup lang="ts">
+/**
+ * The CreateAssigneeView component allows users to create a new assignee.
+ * It provides a form with fields for entering the assignee's first name, last name, and email.
+ */
 import { useCreateAssignee } from '@/composables/Assignees/UseCreateAssignee'
 
+// Reactive properties and methods for assignee creation
 const { newPrename, newName, newEmail, handleSubmit, cancel } = useCreateAssignee()
 </script>
 

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import config from '@/config'
-import { showToast, Toast } from '@/ts/toasts'
-import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { computed, onMounted, ref, type Ref } from 'vue'
-import { useRouter } from 'vue-router'
+/**
+ * The ToDoView component displays all ToDo items, separated into "Unfinished" and "Finished" categories.
+ * It provides features for filtering, sorting, marking items as finished/unfinished, editing, deleting, and downloading ToDos as a CSV.
+ */
 import { useToDo } from '@/composables/ToDo/UseToDo'
+import { onMounted } from 'vue'
 
+// Reactive properties and methods for ToDo handling
 const {
   showFinished,
   router,

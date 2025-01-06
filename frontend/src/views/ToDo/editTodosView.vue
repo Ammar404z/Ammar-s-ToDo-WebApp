@@ -1,9 +1,14 @@
 <script setup lang="ts">
+/**
+ * The EditToDosView component allows users to edit the details of an existing ToDo item.
+ * It provides fields for editing the title, description, due date, and assignees.
+ */
+import { useEditToDo } from '@/composables/ToDo/UseEditToDo'
 import { showToast, Toast } from '@/ts/toasts'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { onMounted } from 'vue'
-import { useEditToDo } from '@/composables/ToDo/UseEditToDo'
 
+// Reactive properties and methods for ToDo management
 const {
   route,
   router,
@@ -15,6 +20,9 @@ const {
   updateToDo
 } = useEditToDo()
 
+/**
+ * Fetch the ToDo item and available assignees when the component is mounted.
+ */
 onMounted(() => {
   const id = parseInt(route.params.id as string, 10)
   if (!isNaN(id)) {
