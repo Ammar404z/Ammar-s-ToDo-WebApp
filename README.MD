@@ -55,7 +55,7 @@ npm install
 
 npm run dev
 
-4. Das Frontend ist nun unter http://localhost:8081/ verfügbar.
+4. Das Frontend ist nun unter http://localhost:5173/ verfügbar.
 
 ## Features
 
@@ -65,6 +65,8 @@ npm run dev
   - Filtern von ToDos nach Titel (Substring-Filterung).
   - Sortieren der ToDos nach Titel und Fälligkeitsdatum (aufsteigend/absteigend).
 - **Abgeschlossene Aufgaben**: Abgeschlossene ToDos können separat angezeigt werden.
+- **Kategoriezuweisung**: Automatische Zuweisung von Kategorien zu ToDos basierend auf ihrem Titel mithilfe eines trainierten Modells (PMML).
+- **CSV-Export**: Herunterladen aller ToDos als CSV-Datei mit allen relevanten Attributen.
 
 ## Technologien
 
