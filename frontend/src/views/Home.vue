@@ -3,9 +3,9 @@
 
   <div class="button-container">
     <button class="nav-button" @click="navigateTo('todos')">Todos</button>
+    <button class="nav-button" @click="navigateTo('create-todo')">+ Create Todos</button>
     <button class="nav-button" @click="navigateTo('assignees')">Assignees</button>
-    <button class="nav-button" @click="navigateTo('create-todo')">Create Todos</button>
-    <button class="nav-button" @click="navigateTo('create-assignee')">Create Assignees</button>
+    <button class="nav-button" @click="navigateTo('create-assignee')">+ Create Assignees</button>
   </div>
 </template>
 

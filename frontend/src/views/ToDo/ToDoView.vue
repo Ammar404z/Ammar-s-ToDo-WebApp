@@ -29,7 +29,7 @@ onMounted(fetchTodos)
     <h1>ToDos</h1>
     <div class="header-container-buttons">
       <button class="create-button" @click="router.push('/create-todo')">+ Create ToDo</button>
-      <button class="download-button" @click="downloadCsv()">Download CSV</button>
+      <button class="download-button" @click="downloadCsv()">⬇ Download CSV</button>
     </div>
   </div>
 

@@ -19,35 +19,39 @@ export function useCreateAssignee() {
    * @param name - Last name of the assignee.
    * @param email - Email address of the assignee.
    */
-  function createAssignee(prename: string, name: string, email: string) {
-    fetch(`${config.apiBaseUrl}/assignees`, {
+  function createAssignee(prename: string, name: string, email: string): Promise<void> {
+    return fetch(`${config.apiBaseUrl}/assignees`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prename, name, email })
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to create assignee')
+      }
+      return response.json()
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to create assignee')
-        }
-        return response.json()
-      })
-      .then(() => {
-        showToast(new Toast('Success', `Assignee ${name} created successfully`, 'success', faCheck))
-      })
-      .catch((error) => {
-        showToast(new Toast('Error', error.message, 'error', faXmark))
-      })
   }
 
   /**
    * Submits the new assignee form, creates the assignee, and redirects to the assignees list.
    */
-  function handleSubmit() {
-    createAssignee(newPrename.value, newName.value, newEmail.value)
-    newPrename.value = ''
-    newName.value = ''
-    newEmail.value = ''
-    router.push('/assignees')
+  async function handleSubmit() {
+    try {
+      // Attempt to create the assignee
+      await createAssignee(newPrename.value, newName.value, newEmail.value)
+
+      // Reset the form fields
+      newPrename.value = ''
+      newName.value = ''
+      newEmail.value = ''
+
+      // Redirect to the assignees list
+      router.push('/assignees')
+      showToast(new Toast('Success', 'Assignee created successfully', 'success', faCheck))
+    } catch (error: any) {
+      // Handle errors without redirecting
+      showToast(new Toast('Error', error.message || 'Failed to create assignee', 'error', faXmark))
+    }
   }
 
   function cancel() {
