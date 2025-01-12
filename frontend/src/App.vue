@@ -45,18 +45,14 @@ import 'agnostic-vue/dist/index.css'
 </template>
 
 <style scoped>
-/* Main Container for the App */
-.main {
-  padding: 10px 20px;
-}
-
 /* Header Styles */
 header {
   background-color: #000000;
   padding: 15px 30px;
   display: flex;
-  justify-content: space-between; /* Space between title and navigation */
-  align-items: center;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center align content horizontally */
+  justify-content: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   transition:
     background-color 0.3s ease,
@@ -68,28 +64,12 @@ header:hover {
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
 }
 
-/* Header Title */
-header h1 {
-  font-size: 2rem;
-  color: #ffffff;
-  margin: 0;
-  font-weight: bold;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  transition:
-    transform 0.3s ease,
-    color 0.3s ease;
-}
-
-header h1:hover {
-  transform: scale(1.05); /* Slight zoom effect */
-  color: #2cec4c; /* Bright green */
-}
-
 /* Navigation Styles */
 header nav {
   display: flex;
   gap: 20px; /* Space between links */
+  justify-content: center; /* Center links horizontally */
+  margin-top: 10px; /* Add spacing below the title */
 }
 
 header a {
@@ -121,13 +101,13 @@ header a:active {
 @media (max-width: 768px) {
   header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* Keep content centered on small screens */
   }
 
   header nav {
     flex-direction: column;
     gap: 10px;
-    align-items: flex-start;
+    align-items: center; /* Center links on small screens */
   }
 }
 </style>
