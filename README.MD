@@ -7,7 +7,7 @@ Diese Applikation ist eine einfache REST-basierte Anwendung zur Verwaltung von T
 
 # Preview
 
-![App Preview](./images/preview.png)
+![App Preview](./images/Preview.png)
 
 ## Voraussetzungen
 
