@@ -24,7 +24,7 @@ Stellen Sie sicher, dass die folgenden Programme auf Ihrem System installiert si
 
 1. Klonen Sie das Repository:
 
-git clone https://github.tik.uni-stuttgart.de/iste-pe2-2024/repo086.git
+git clone https://github.com/Ammar404z/Ammar-s-ToDo-WebApp.git
 
 2. Stellen Sie sicher, dass Ihre MariaDB-Instanz läuft.
    • Achten Sie darauf, dass die MariaDB-Instanz korrekt konfiguriert und erreichbar ist. (username: root, Password: root).
