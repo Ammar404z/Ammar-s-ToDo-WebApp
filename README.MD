@@ -5,6 +5,10 @@
 Diese Applikation ist eine einfache REST-basierte Anwendung zur Verwaltung von ToDos und Assignees. Sie bietet CRUD-Operationen für beide Entitäten und speichert die Daten in einer MariaDB-Datenbank.
 (Diese Applikation folgt dem Schema des Beispielprojektes in PE II)
 
+# Preview
+
+![App Preview](./images/preview.png)
+
 ## Voraussetzungen
 
 Stellen Sie sicher, dass die folgenden Programme auf Ihrem System installiert sind:
