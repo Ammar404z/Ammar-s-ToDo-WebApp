@@ -77,3 +77,8 @@ npm run dev
 - **Frontend**: Vue.js 3 mit Composition API
 - **Styling**: Agnostic UI, CSS
 - **Backend**: RESTful API (Spring Boot)
+
+## Note
+
+Dieses Projekt wurde im Kurs "Programmentwicklung II" (Universität Stuttgart) entwickelt und mit der Note **1,0** bewertet.
+![Note](./images/note.png)
